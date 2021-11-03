@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3Simple">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/db_middleware?useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT%2b8"
+                        userId="root"
+                        password="abc123">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="cn.ponyzhang.server.entity" targetProject="F:\java learning\middle\server\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="cn.ponyzhang.server.dao"  targetProject="F:\java learning\middle\server\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.ponyzhang.server.mapper"  targetProject="F:\java learning\middle\server\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        
+        <table tableName="red_detail" domainObjectName="RedDetail"/>
+        <table tableName="red_record" domainObjectName="RedRecord"/>
+        <table tableName="red_rob_record" domainObjectName="RedRobRecord"/>
+
+    </context>
+</generatorConfiguration>
