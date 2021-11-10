@@ -54,15 +54,20 @@ public class IRedPacketService implements RedPacketService {
         }
         boolean res = click(redId);
         if (res) {
-            Object redPacket = redisTemplate.opsForList().rightPop(redId);
-            if (redPacket != null) {
-                String totalKey = redId + ":total";
-                Object redTotal = opsForValue.get(totalKey);
-                opsForValue.set(totalKey, Integer.valueOf(redTotal.toString()) - 1);
-                BigDecimal result = new BigDecimal(redPacket.toString()).divide(new BigDecimal(100));
-                redService.recordRobRedPacket(userId, redId, result);
-                opsForValue.set(redId +":" + userId + ":rob", result, 24L, TimeUnit.HOURS);
-                return result;
+            final String lockKey = redId + ":" + userId + ":lock";
+            Boolean lock = opsForValue.setIfAbsent(lockKey, redId,24L,TimeUnit.HOURS);
+            if(lock){
+                Object redPacket = redisTemplate.opsForList().rightPop(redId);
+                if (redPacket != null) {
+                    String totalKey = redId + ":total";
+                    Object redTotal = opsForValue.get(totalKey);
+                    opsForValue.set(totalKey, Integer.valueOf(redTotal.toString()) - 1);
+                    BigDecimal result = new BigDecimal(redPacket.toString()).divide(new BigDecimal(100));
+                    redService.recordRobRedPacket(userId, redId, result);
+                    opsForValue.set(redId +":" + userId + ":rob", result, 24L, TimeUnit.HOURS);
+                    logger.info("当前用户抢到了红包：userId={},key={},money={}",userId,redId,result);
+                    return result;
+                }
             }
         }
         return null;

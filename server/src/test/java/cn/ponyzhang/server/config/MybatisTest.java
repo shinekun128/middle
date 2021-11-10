@@ -28,6 +28,4 @@ public class MybatisTest {
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
     }
-
-
 }
