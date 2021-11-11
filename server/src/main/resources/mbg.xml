@@ -29,6 +29,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         
-        <table tableName="user_reg" domainObjectName="UserReg"/>
+        <table tableName="book_rob" domainObjectName="BookRob"/>
+        <table tableName="book_stock" domainObjectName="BookStock"/>
+
     </context>
 </generatorConfiguration>

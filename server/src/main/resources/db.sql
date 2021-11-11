@@ -90,9 +90,9 @@ create table `user_account`
 
 create table `user_account_record`
 (
-    `id` int(11) primary key auto_increment,
-    `account_id` int(11) not null comment '账户表主键id',
-    `money` decimal(10, 4) not null comment '操作金额',
+    `id`          int(11) primary key auto_increment,
+    `account_id`  int(11) not null comment '账户表主键id',
+    `money`       decimal(10, 4) not null comment '操作金额',
     `create_time` datetime default null,
     unique key `idx_account_id`(`account_id`)
 )engine=InnoDB Auto_increment=11 default charset=utf8 comment="用户账户操作记录表";
@@ -104,3 +104,20 @@ create table `user`
     `password`    varchar(255) not null comment '用户密码',
     `create_time` datetime default null comment '创建时间',
 )engine=InnoDB Auto_increment=4 default charset=utf8 comment="用户信息表";
+
+create table `book_stock`
+(
+    `id`          int(11) not null primary key auto_increment comment '书籍主键id',
+    `book_no`     varchar(255) UNION not null comment '书籍编号',
+    `stock`       int(11) not null comment '书籍库存',
+    `is_active`   tinyint(4) not null default '1' comment '是否上架',
+    `create_time` datetime default null comment '上架时间'
+)engine=InnoDB Auto_increment=4 default charset=utf8 comment="书籍库存表";
+
+create table `book_rob`
+(
+    `id` int(11) not null primary key auto_increment comment '主键id',
+    `user_id` int(11) unique not null comment '用户编号',
+    `book_no` varchar(255) not null commment '书籍编号',
+    `rob_time` datetime default null comment '抢购时间'
+)engine=InnoDB Auto_increment=22 default charset=utf8 comment="用户抢购记录";
