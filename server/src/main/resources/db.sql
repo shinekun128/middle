@@ -116,8 +116,42 @@ create table `book_stock`
 
 create table `book_rob`
 (
-    `id` int(11) not null primary key auto_increment comment '主键id',
-    `user_id` int(11) unique not null comment '用户编号',
-    `book_no` varchar(255) not null commment '书籍编号',
+    `id`       int(11) not null primary key auto_increment comment '主键id',
+    `user_id`  int(11) unique not null comment '用户编号',
+    `book_no`  varchar(255) not null commment '书籍编号',
     `rob_time` datetime default null comment '抢购时间'
 )engine=InnoDB Auto_increment=22 default charset=utf8 comment="用户抢购记录";
+
+create table `praise`
+(
+    `id` int(11) not null primary key auto_increment comment '主键id',
+    `blog_id` int(11) unique not null comment '博客id',
+    `user_id` int(11)  unique not null comment '用户id',
+    `praise_time` datetime default null comment '点赞时间',
+    `status` tinyint(4) default '1' comment '状态（0=已取消，1=已点赞）',
+    `is_active` tinyint(4) default '1' comment '是否有效',
+    `create_time` datetime default null comment '创建时间',
+    `update_time` datetime default null comment '更新时间'
+) engine=InnoDB Auto_increment=22 default charset=utf8 comment="点赞排行榜";
+
+CREATE TABLE `praise`
+(
+    `id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键id',
+    `blog_id` INT(11) NOT NULL COMMENT '博客id',
+    `user_id` INT(11) NOT NULL COMMENT '用户id',
+    `praise_time` DATETIME DEFAULT NULL COMMENT '点赞时间',
+    `status` TINYINT(4) DEFAULT '1' COMMENT '状态（0=已取消，1=已点赞）',
+    `is_active` TINYINT(4) DEFAULT '1' COMMENT '是否有效',
+    `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT NULL COMMENT '更新时间'
+) ENGINE=INNODB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT="点赞排行榜";
+
+
+CREATE TABLE `blog`(
+                       `id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键id',
+                       `title` VARCHAR(255) NOT NULL COMMENT '博客名称',
+                       `praise_count` INT(11) DEFAULT '0' COMMENT '点赞数量',
+                       `is_active` TINYINT(4) DEFAULT '1' COMMENT '是否有效',
+                       `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+                       `update_time` DATETIME DEFAULT NULL COMMENT '更新时间'
+)ENGINE=INNODB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT="博客记录";
